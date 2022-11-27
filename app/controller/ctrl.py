@@ -11,11 +11,11 @@ d_mod = None
 def init_view():
     global g_mod
     match g_mod:
-        case 1: c_view.init()
-        case 2: tk_view.init()
+        case 1: tk_view.init() # Поменяла местами 1 и 2
+        case 2: c_view.init()
 
 
-def init_db():
+def  init_db():
     global d_mod
     match d_mod:
         case 1:
@@ -36,15 +36,25 @@ def get_data_from_database(str_pattern) -> list:
 #            return db_mysql.get_data(str_pattern)
 
 def load_from_csv(file_name):
-    
     global d_mod
-    
     lst_data = db_csv.get_data_from_file(file_name)
     match d_mod:
         case 1:
             db_sqlite3.push_data(lst_data)
         case 2:
+            db_csv.push_data(lst_data)
+        case 3:
             pass
+
+def load_from_console(): # Добавила эту функцию
+    global d_mod
+    lst_data = input('Введите ФИО и номер телефона через запятую, например: Иванов Иван Петрович,8-802-321-65-54\n')
+    lst_data = [tuple(lst_data.split(','))]
+    match d_mod:
+        case 1:
+            db_sqlite3.push_data(lst_data)
+        case 2:
+            db_csv.push_data(lst_data)
         case 3:
             pass
 

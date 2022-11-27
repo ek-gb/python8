@@ -1,6 +1,5 @@
 from tkinter import filedialog, ttk
 from tkinter import *
-
 from app.controller import ctrl
 
 main_window = None
@@ -17,7 +16,6 @@ def init_main_window():
 
     main_window.title('Телефонный справочник')
     main_window.geometry((f'700x400+{w}+{h}'))
-
 
 def init_main_table(): 
     
@@ -52,7 +50,6 @@ def init_control_panel():
     btn_load = ttk.Button(top_panel,text='Загрузить',command=btn_load_click)
     btn_load.pack(side=LEFT,pady=5)
 
-
 def fill_main_table(str_pattern=''):
 
     global main_table
@@ -62,7 +59,6 @@ def fill_main_table(str_pattern=''):
     for elem in data:
         main_table.insert('',i,values=elem)
         i += 1
-
 
 def init():
 
@@ -76,7 +72,6 @@ def init():
     fill_main_table()
     main_window.mainloop()
 
-
 def btn_find_click():
    
     str_query = main_window.children['top_panel'].children['entry_find'].get()
@@ -87,16 +82,12 @@ def btn_find_click():
         clean_main_table()
         fill_main_table(str_query)
 
-    
-
-
 def btn_load_click():
    
     file_name = filedialog.askopenfilename(initialdir='./import')
     ctrl.load_from_csv(file_name)
     clean_main_table()
     fill_main_table()
-
 
 def btn_remove_click():
 

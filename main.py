@@ -10,21 +10,22 @@ d_mod = None # выбор
 def init():
     
     # Выбор графического интерфейса
-    # 1 - CLI
-    # 2 - GUI
+    # 1 - GUI
+    # 2 - CLI
     global g_mod
 
     # Выбор типа хранилища
     # 1 - SQLite
     # 2 - CSV
+    # 3 - MySQL
     global d_mod
 
     for i in range(1, len(sys.argv)):
         match sys.argv[i]:
-            case '-gui': 
-                g_mod = 2
-            case '-cli':
+            case '-gui':
                 g_mod = 1
+            case '-cli': 
+                g_mod = 2
             case '-sql':
                 d_mod = 1
             case '-csv':
@@ -36,12 +37,21 @@ def init():
                 return False
 
     if g_mod == None:
-        g_mod = 1
-        print('Выбран режим по умолчанию: CLI')
+        c = input('Выберите графический интерфейс: gui (через графический интерфейс) или cli (через командную строку).\n')
+        if c == 'gui': g_mod = 1
+        elif c == 'cli': g_mod = 2
+        else:
+            print('Выбран неверный режим.')
+            return False
 
     if d_mod == None:
-        d_mod = 1
-        print('Выбран режим по умолчанию: SQLite')
+        c = input('Выберите тип хранилища: s (SQLine), c (CSV) или m (MySQL).\n')
+        if c == 's': d_mod = 1
+        elif c == 'c': d_mod = 2
+        # if db_mod == 'm': d_mod = 3 # Добавила строку, но пока закомметировала, как как msql не реализован до конца
+        else:
+            print('Выбран неверный режим.')
+            return False
     
     return True
 
